@@ -5,4 +5,13 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!-- text labels -->
+    <string name="label_name">Name:</string>
+    <string name="label_email">Email address:</string>
+    <string name="label_password">Password:</string>
+    <string name="label_password_confirm">Retype password:</string>
+
+    <!-- button labels -->
+    <string name="button_register">Register</string>
+
 </resources>
