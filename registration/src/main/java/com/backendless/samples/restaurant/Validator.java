@@ -26,7 +26,7 @@ public class Validator
       return false;
     }
 
-    if( Character.isUpperCase( name.charAt( 0 ) ) )
+    if( !Character.isUpperCase( name.charAt( 0 ) ) )
     {
       Toast.makeText( currentContext, currentContext.getString( R.string.warning_name_lowercase ), Toast.LENGTH_LONG ).show();
       return false;
