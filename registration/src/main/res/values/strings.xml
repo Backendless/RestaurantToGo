@@ -2,8 +2,6 @@
 <resources>
 
     <string name="app_name">RestaurantToGo</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 
     <!-- text labels -->
     <string name="label_name">Name:</string>
@@ -13,5 +11,13 @@
 
     <!-- button labels -->
     <string name="button_register">Register</string>
+
+    <!-- warnings -->
+    <string name="warning_name_empty">Name cannot be empty</string>
+    <string name="warning_name_lowercase">Name should start from an uppercase letter</string>
+    <string name="warning_email_empty">Email cannot be empty</string>
+    <string name="warning_email_invalid">Invalid email format</string>
+    <string name="warning_password_empty">Password cannot be empty</string>
+    <string name="warning_passwords_do_not_match">Passwords do not match</string>
 
 </resources>
