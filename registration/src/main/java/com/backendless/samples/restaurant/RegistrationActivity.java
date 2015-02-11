@@ -97,20 +97,15 @@ public class RegistrationActivity extends Activity
    *
    * @return a callback, containing actions to be executed on registration request result
    */
-  public AsyncCallback<BackendlessUser> createRegistrationCallback()
+  public LoadingCallback<BackendlessUser> createRegistrationCallback()
   {
-    return new AsyncCallback<BackendlessUser>()
+    return new LoadingCallback<BackendlessUser>( this, "Sending registration request..." )
     {
       @Override
       public void handleResponse( BackendlessUser response )
       {
+        hideLoading();
         Toast.makeText( RegistrationActivity.this, "Registered. ObjectId: " + response.getObjectId(), Toast.LENGTH_LONG ).show();
-      }
-
-      @Override
-      public void handleFault( BackendlessFault fault )
-      {
-        DialogHelper.createErrorDialog( RegistrationActivity.this, "BackendlessFault", fault.getMessage() ).show();
       }
     };
   }
@@ -139,8 +134,9 @@ public class RegistrationActivity extends Activity
 
         if( isRegistrationValuesValid( name, email, password, passwordConfirmation ) )
         {
-          AsyncCallback<BackendlessUser> registrationCallback = createRegistrationCallback();
+          LoadingCallback<BackendlessUser> registrationCallback = createRegistrationCallback();
 
+          registrationCallback.showLoading();
           registerUser( name.toString(), email.toString(), password.toString(), registrationCallback );
         }
       }
