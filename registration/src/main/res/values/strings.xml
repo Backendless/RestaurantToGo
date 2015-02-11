@@ -3,6 +3,9 @@
 
     <string name="app_name">RestaurantToGo</string>
 
+    <!-- activity names -->
+    <string name="activity_registration">Endless-To-Go Registration</string>
+
     <!-- text labels -->
     <string name="label_name">Name:</string>
     <string name="label_email">Email address:</string>

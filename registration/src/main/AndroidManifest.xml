@@ -12,7 +12,7 @@
 
         <activity
             android:name=".RegistrationActivity"
-            android:label="@string/app_name">
+            android:label="@string/activity_registration">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
