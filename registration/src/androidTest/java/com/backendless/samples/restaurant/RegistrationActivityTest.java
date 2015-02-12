@@ -15,7 +15,6 @@ public class RegistrationActivityTest extends ActivityInstrumentationTestCase2<R
   private EditText emailField;
   private EditText passwordField;
   private EditText passwordConfirmField;
-  private Button registerButton;
 
   private String validName = "Jack Daniels";
   private String validEmail = "jackyd@email.com";
@@ -34,7 +33,6 @@ public class RegistrationActivityTest extends ActivityInstrumentationTestCase2<R
     emailField = (EditText) solo.getView( R.id.emailField );
     passwordField = (EditText) solo.getView( R.id.passwordField );
     passwordConfirmField = (EditText) solo.getView( R.id.passwordConfirmField );
-    registerButton = (Button) solo.getView( R.id.registerButton );
   }
 
   public void testEmptyNameValidation()
