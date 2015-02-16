@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:text="@string/button_register"
         android:id="@+id/registerButton"
-        android:singleLine="false"
+        android:ems="8"
         android:layout_marginTop="@dimen/view_vertical_margin"
         android:layout_marginBottom="@dimen/view_vertical_margin" />
 
