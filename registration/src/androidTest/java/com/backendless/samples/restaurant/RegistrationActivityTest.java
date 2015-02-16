@@ -1,7 +1,6 @@
 package com.backendless.samples.restaurant;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.Button;
 import android.widget.EditText;
 import com.robotium.solo.Solo;
 
