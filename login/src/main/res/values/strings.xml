@@ -15,6 +15,13 @@
 
     <!-- button labels -->
     <string name="button_register">Register</string>
+    <string name="button_login">Login</string>
+    <string name="button_login_facebook">Login with Facebook</string>
+    <string name="button_login_twitter">Login with Twitter</string>
+
+    <!-- texts -->
+    <string name="register_prompt">Do not have an account? Register now</string>
+    <string name="divider_or">OR</string>
 
     <!-- warnings -->
     <string name="warning_name_empty">Name cannot be empty</string>
@@ -23,5 +30,14 @@
     <string name="warning_email_invalid">Invalid email format</string>
     <string name="warning_password_empty">Password cannot be empty</string>
     <string name="warning_passwords_do_not_match">Passwords do not match</string>
+
+    <!-- info messages -->
+    <string name="info_registered">Registered. ObjectId: %s</string>
+    <string name="info_logged_in">Logged in. ObjectId: %s</string>
+
+    <!-- loading messages -->
+    <string name="loading_empty">Loading…</string>
+    <string name="loading_register">Sending registration request…</string>
+    <string name="loading_login">Logging in…</string>
 
 </resources>

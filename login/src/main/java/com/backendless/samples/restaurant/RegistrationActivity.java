@@ -98,13 +98,13 @@ public class RegistrationActivity extends Activity
    */
   public LoadingCallback<BackendlessUser> createRegistrationCallback()
   {
-    return new LoadingCallback<BackendlessUser>( this, "Sending registration request..." )
+    return new LoadingCallback<BackendlessUser>( this, getString( R.string.loading_register ) )
     {
       @Override
-      public void handleResponse( BackendlessUser response )
+      public void handleResponse( BackendlessUser registeredUser )
       {
-        hideLoading();
-        Toast.makeText( RegistrationActivity.this, "Registered. ObjectId: " + response.getObjectId(), Toast.LENGTH_LONG ).show();
+        super.handleResponse( registeredUser );
+        Toast.makeText( RegistrationActivity.this, String.format( getString( R.string.info_registered ), registeredUser.getObjectId() ), Toast.LENGTH_LONG ).show();
       }
     };
   }
