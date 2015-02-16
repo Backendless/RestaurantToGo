@@ -23,4 +23,10 @@
     <string name="warning_password_empty">Password cannot be empty</string>
     <string name="warning_passwords_do_not_match">Passwords do not match</string>
 
+    <!-- info messages -->
+    <string name="info_registered">Registered. ObjectId: %s</string>
+
+    <!-- loading messages -->
+    <string name="loading_register">Sending registration request…</string>
+
 </resources>
