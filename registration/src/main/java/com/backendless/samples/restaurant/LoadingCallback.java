@@ -10,7 +10,8 @@ import com.backendless.exceptions.BackendlessFault;
  * A callback, which has ability to show loading dialog while response is being received.
  * Shows Toast with result's toString() on success.
  * Shows AlertDialog with error message on failure.
- * If overriding handleResponse and/or handleFault, should manually dismiss ProgressDialog with hideLoading() method.
+ * If overriding handleResponse and/or handleFault, should manually dismiss ProgressDialog with hideLoading() method
+ * or calling super.handleResponse() or super.handleFault().
  *
  * @param <T> class to be received from server
  */
@@ -46,7 +47,6 @@ public class LoadingCallback<T> implements AsyncCallback<T>
   public void handleResponse( T response )
   {
     progressDialog.dismiss();
-    Toast.makeText( context, "Got response: " + response.toString(), Toast.LENGTH_LONG ).show();
   }
 
   @Override

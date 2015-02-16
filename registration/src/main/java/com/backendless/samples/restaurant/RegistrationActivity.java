@@ -101,10 +101,10 @@ public class RegistrationActivity extends Activity
     return new LoadingCallback<BackendlessUser>( this, "Sending registration request..." )
     {
       @Override
-      public void handleResponse( BackendlessUser response )
+      public void handleResponse( BackendlessUser registeredUser )
       {
-        hideLoading();
-        Toast.makeText( RegistrationActivity.this, "Registered. ObjectId: " + response.getObjectId(), Toast.LENGTH_LONG ).show();
+        super.handleResponse( registeredUser );
+        Toast.makeText( RegistrationActivity.this, "Registered. ObjectId: " + registeredUser.getObjectId(), Toast.LENGTH_LONG ).show();
       }
     };
   }
