@@ -1,1 +1,1 @@
-include ':registration'
+include ':registration', ':login'
