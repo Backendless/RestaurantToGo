@@ -27,6 +27,7 @@
     <string name="info_registered">Registered. ObjectId: %s</string>
 
     <!-- loading messages -->
+    <string name="loading_empty">Loading…</string>
     <string name="loading_register">Sending registration request…</string>
 
 </resources>

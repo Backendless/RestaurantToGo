@@ -2,7 +2,6 @@ package com.backendless.samples.restaurant;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.widget.Toast;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
@@ -27,7 +26,7 @@ public class LoadingCallback<T> implements AsyncCallback<T>
    */
   public LoadingCallback( Context context )
   {
-    this( context, "Loading..." );
+    this( context, context.getString( R.string.loading_empty ) );
   }
 
   /**
