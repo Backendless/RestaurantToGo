@@ -1,1 +1,1 @@
-include ':registration', ':login'
+include ':registration', ':login', ':restaurant_list'

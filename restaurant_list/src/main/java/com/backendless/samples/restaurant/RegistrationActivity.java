@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
+import com.backendless.samples.restaurant.utility.BackendSettings;
+import com.backendless.samples.restaurant.utility.LoadingCallback;
+import com.backendless.samples.restaurant.utility.Validator;
 
 /**
  * Handles registration flow.

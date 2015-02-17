@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/login" />
             <option value="$PROJECT_DIR$/registration" />
+            <option value="$PROJECT_DIR$/restaurant_list" />
           </set>
         </option>
       </GradleProjectSettings>
