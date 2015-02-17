@@ -1,6 +1,7 @@
 package com.backendless.samples.restaurant;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -104,7 +105,10 @@ public class RegistrationActivity extends Activity
       public void handleResponse( BackendlessUser registeredUser )
       {
         super.handleResponse( registeredUser );
-        Toast.makeText( RegistrationActivity.this, String.format( getString( R.string.info_registered ), registeredUser.getObjectId() ), Toast.LENGTH_LONG ).show();
+        Intent registrationResult = new Intent();
+        registrationResult.putExtra( BackendlessUser.EMAIL_KEY, registeredUser.getEmail() );
+        setResult( RESULT_OK, registrationResult );
+        RegistrationActivity.this.finish();
       }
     };
   }

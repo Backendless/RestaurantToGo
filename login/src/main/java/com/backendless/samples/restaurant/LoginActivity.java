@@ -1,10 +1,16 @@
 package com.backendless.samples.restaurant;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
@@ -22,6 +28,8 @@ import java.util.Map;
  */
 public class LoginActivity extends Activity
 {
+  private static final int REGISTER_REQUEST_CODE = 1;
+
   @Override
   protected void onCreate( Bundle savedInstanceState )
   {
@@ -38,6 +46,44 @@ public class LoginActivity extends Activity
 
     Button loginTwitterButton = (Button) findViewById( R.id.loginTwitterButton );
     loginTwitterButton.setOnClickListener( createLoginWithTwitterButtonListener() );
+
+    makeRegistrationLink();
+  }
+
+  /**
+   * Makes registration link clickable and assigns it a click listener.
+   */
+  public void makeRegistrationLink()
+  {
+    SpannableString registrationPrompt = new SpannableString( getString( R.string.register_prompt ) );
+
+    ClickableSpan clickableSpan = new ClickableSpan()
+    {
+      @Override
+      public void onClick( View widget )
+      {
+        startRegistrationActivity();
+      }
+    };
+
+    String linkText = getString( R.string.register_link );
+    int linkStartIndex = registrationPrompt.toString().indexOf( linkText );
+    int linkEndIndex = linkStartIndex + linkText.length();
+    registrationPrompt.setSpan( clickableSpan, linkStartIndex, linkEndIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE );
+
+    TextView registerPromptView = (TextView) findViewById( R.id.registerPromptText );
+    registerPromptView.setText( registrationPrompt );
+    registerPromptView.setMovementMethod( LinkMovementMethod.getInstance() );
+  }
+
+  /**
+   * Sends a request for registration to RegistrationActivity,
+   * expects for result in onActivityResult.
+   */
+  public void startRegistrationActivity()
+  {
+    Intent registrationIntent = new Intent( this, RegistrationActivity.class );
+    startActivityForResult( registrationIntent, REGISTER_REQUEST_CODE );
   }
 
   /**
@@ -179,5 +225,25 @@ public class LoginActivity extends Activity
         Toast.makeText( LoginActivity.this, String.format( getString( R.string.info_logged_in ), loggedInUser.getObjectId() ), Toast.LENGTH_LONG ).show();
       }
     };
+  }
+
+  @Override
+  protected void onActivityResult( int requestCode, int resultCode, Intent data )
+  {
+    if( resultCode == RESULT_OK )
+    {
+      switch( requestCode )
+      {
+        case REGISTER_REQUEST_CODE:
+          String email = data.getStringExtra( BackendlessUser.EMAIL_KEY );
+          EditText emailField = (EditText) findViewById( R.id.emailField );
+          emailField.setText( email );
+
+          EditText passwordField = (EditText) findViewById( R.id.passwordField );
+          passwordField.requestFocus();
+
+          Toast.makeText( this, getString( R.string.info_registered_success ), Toast.LENGTH_SHORT ).show();
+      }
+    }
   }
 }
