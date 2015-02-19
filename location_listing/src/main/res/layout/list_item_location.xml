@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:paddingLeft="@dimen/view_horizontal_margin"
+    android:paddingTop="@dimen/view_vertical_margin"
+    android:paddingRight="@dimen/view_horizontal_margin"
+    android:paddingBottom="@dimen/view_vertical_margin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_city"
+        android:id="@+id/city"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_address"
+        android:id="@+id/address"
+        android:layout_below="@+id/city"
+        android:textSize="@dimen/abc_text_size_small_material"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="@dimen/view_horizontal_margin" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/list_item_arrow"
+        android:contentDescription="@string/arrow_description" />
+</RelativeLayout>
