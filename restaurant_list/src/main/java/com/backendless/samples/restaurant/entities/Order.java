@@ -4,10 +4,11 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
-import com.backendless.geo.GeoPoint;
 import com.backendless.persistence.BackendlessDataQuery;
 
-public class Order
+import java.io.Serializable;
+
+public class Order implements Serializable
 {
   private java.util.Date created;
   private String objectId;
@@ -15,6 +16,7 @@ public class Order
   private String ownerId;
   private java.util.List<MenuItem> menuItem;
   private BackendlessUser customer;
+
   public java.util.Date getCreated()
   {
     return created;
@@ -55,7 +57,6 @@ public class Order
     this.customer = customer;
   }
 
-                                                    
   public Order save()
   {
     return Backendless.Data.of( Order.class ).save( this );

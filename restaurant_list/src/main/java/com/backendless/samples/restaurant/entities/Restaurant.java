@@ -4,10 +4,11 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
-import com.backendless.geo.GeoPoint;
 import com.backendless.persistence.BackendlessDataQuery;
 
-public class Restaurant
+import java.io.Serializable;
+
+public class Restaurant implements Serializable
 {
   private String name;
   private String ownerId;
@@ -17,6 +18,7 @@ public class Restaurant
   private java.util.Date created;
   private java.util.List<Location> locations;
   private BackendlessUser owner;
+
   public String getName()
   {
     return name;
@@ -77,7 +79,6 @@ public class Restaurant
     this.owner = owner;
   }
 
-                                                    
   public Restaurant save()
   {
     return Backendless.Data.of( Restaurant.class ).save( this );

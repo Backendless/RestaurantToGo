@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.backendless.samples.restaurant">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/activity_login"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".RegistrationActivity"
+            android:label="@string/activity_registration"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".RestaurantListingActivity"
+            android:label="@string/activity_restaurant_listing"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".LocationListingActivity"
+            android:label="@string/activity_locations_listing"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".OrderPlacementActivity"
+            android:label="@string/activity_order_placement"
+            android:screenOrientation="portrait" />
+
+        <service android:name="com.backendless.AndroidService" />
+
+    </application>
+
+</manifest>

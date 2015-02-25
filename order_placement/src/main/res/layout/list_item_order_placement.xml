@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:paddingLeft="@dimen/view_horizontal_margin"
+    android:paddingTop="@dimen/view_vertical_margin"
+    android:paddingRight="@dimen/view_horizontal_margin"
+    android:paddingBottom="@dimen/view_vertical_margin"
+    android:gravity="center_vertical">
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_menu_item"
+        android:id="@+id/menuItemCheckBox"
+        android:layout_marginLeft="@dimen/view_horizontal_margin"
+        android:layout_alignParentLeft="true"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:layout_toLeftOf="@+id/quantity" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/quantity"
+        android:orientation="vertical"
+        android:layout_toLeftOf="@+id/itemPrice" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_price"
+        android:id="@+id/itemPrice"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/view_horizontal_margin" />
+
+
+</RelativeLayout>

@@ -2,20 +2,23 @@ package com.backendless.samples.restaurant.entities;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
-import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
-import com.backendless.geo.GeoPoint;
 import com.backendless.persistence.BackendlessDataQuery;
 
-public class Location
+import java.io.Serializable;
+
+public class Location implements Serializable
 {
   private String streetAddress;
+  private String country;
   private String objectId;
   private java.util.Date updated;
   private java.util.Date created;
   private String ownerId;
   private String city;
   private String phoneNumber;
+  private Menu menu;
+
   public String getStreetAddress()
   {
     return streetAddress;
@@ -24,6 +27,16 @@ public class Location
   public void setStreetAddress( String streetAddress )
   {
     this.streetAddress = streetAddress;
+  }
+
+  public String getCountry()
+  {
+    return country;
+  }
+
+  public void setCountry( String country )
+  {
+    this.country = country;
   }
 
   public String getObjectId()
@@ -66,7 +79,16 @@ public class Location
     this.phoneNumber = phoneNumber;
   }
 
-                                                    
+  public Menu getMenu()
+  {
+    return menu;
+  }
+
+  public void setMenu( Menu menu )
+  {
+    this.menu = menu;
+  }
+
   public Location save()
   {
     return Backendless.Data.of( Location.class ).save( this );
