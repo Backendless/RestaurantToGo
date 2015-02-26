@@ -28,8 +28,10 @@ public class OrderPlacementActivity extends ListActivity
     location = (Location) getIntent().getSerializableExtra( "location" );
 
     String title = restaurant.getName() + " " + getString( R.string.order_text );
-
     setTitle( title );
+
+    TextView screenTitle = (TextView) findViewById( R.id.title );
+    screenTitle.setText( title );
 
     final TextView orderTotalView = (TextView) findViewById( R.id.orderTotal );
     orderTotalView.setText( String.format( getString( R.string.order_total_text ), 0.00 ) );
