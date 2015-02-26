@@ -30,6 +30,7 @@
     <string name="arrow_description">arrow image</string>
     <string name="locations_text">Locations</string>
     <string name="order_total_text">Order total: %.2f</string>
+    <string name="zero">0</string>
 
     <plurals name="restaurant_locations">
         <item quantity="one">%d location</item>

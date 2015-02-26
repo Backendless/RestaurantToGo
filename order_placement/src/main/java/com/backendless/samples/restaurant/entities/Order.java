@@ -7,6 +7,8 @@ import com.backendless.async.callback.AsyncCallback;
 import com.backendless.persistence.BackendlessDataQuery;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Order implements Serializable
 {
@@ -14,8 +16,13 @@ public class Order implements Serializable
   private String objectId;
   private java.util.Date updated;
   private String ownerId;
-  private java.util.List<MenuItem> menuItem;
   private BackendlessUser customer;
+  private java.util.List<OrderItem> items;
+
+  public Order()
+  {
+    items = new ArrayList<>();
+  }
 
   public java.util.Date getCreated()
   {
@@ -37,16 +44,6 @@ public class Order implements Serializable
     return ownerId;
   }
 
-  public java.util.List<MenuItem> getMenuItem()
-  {
-    return menuItem;
-  }
-
-  public void setMenuItem( java.util.List<MenuItem> menuItem )
-  {
-    this.menuItem = menuItem;
-  }
-
   public BackendlessUser getCustomer()
   {
     return customer;
@@ -55,6 +52,16 @@ public class Order implements Serializable
   public void setCustomer( BackendlessUser customer )
   {
     this.customer = customer;
+  }
+
+  public java.util.List<OrderItem> getItems()
+  {
+    return items;
+  }
+
+  public void setItems( java.util.List<OrderItem> items )
+  {
+    this.items = items;
   }
 
   public Order save()
@@ -205,5 +212,87 @@ public class Order implements Serializable
   public static void findAsync( BackendlessDataQuery query, AsyncCallback<BackendlessCollection<Order>> callback )
   {
     Backendless.Data.of( Order.class ).find( query, callback );
+  }
+
+  /**
+   * Returns count of given menu item in order.
+   *
+   * @param menuItem item to search for
+   * @return count of menu item in this order, 0 if order doesn't contain it
+   */
+  public int getCount( MenuItem menuItem )
+  {
+    for( OrderItem orderItem : items )
+    {
+      if( orderItem.getMenuItem().getObjectId().equals( menuItem.getObjectId() ) )
+      {
+        return orderItem.getQuantity();
+      }
+    }
+
+    return 0;
+  }
+
+  /**
+   * Tells whether this order contains given MenuItem.
+   *
+   * @param menuItem menu item to search for
+   * @return true if order contains menu item. else false
+   */
+  public boolean containsMenuItem( MenuItem menuItem )
+  {
+    for( OrderItem orderItem : items )
+    {
+      if( orderItem.getMenuItem().getObjectId().equals( menuItem.getObjectId() ) )
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Calculates total sum for this order.
+   *
+   * @return order sum
+   */
+  public double calculateTotal()
+  {
+    double sum = 0.0;
+
+    for( OrderItem orderItem : items )
+    {
+      sum += orderItem.getMenuItem().getPrice() * orderItem.getQuantity();
+    }
+
+    return sum;
+  }
+
+  public OrderItem getOrderItem( MenuItem menuItem )
+  {
+    for( OrderItem orderItem : items )
+    {
+      if( orderItem.getMenuItem().getObjectId().equals( menuItem.getObjectId() ) )
+      {
+        return orderItem;
+      }
+    }
+
+    return null;
+  }
+
+  public void removeItem( MenuItem menuItem )
+  {
+    Iterator<OrderItem> iterator = items.iterator();
+    while( iterator.hasNext() )
+    {
+      OrderItem orderItem = iterator.next();
+      if( orderItem.getMenuItem().getObjectId().equals( menuItem.getObjectId() ) )
+      {
+        iterator.remove();
+        return;
+      }
+    }
   }
 }

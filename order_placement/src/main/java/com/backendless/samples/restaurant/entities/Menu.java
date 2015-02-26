@@ -2,7 +2,9 @@ package com.backendless.samples.restaurant.entities;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
+import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
+import com.backendless.geo.GeoPoint;
 import com.backendless.persistence.BackendlessDataQuery;
 
 import java.io.Serializable;
@@ -14,7 +16,6 @@ public class Menu implements Serializable
   private String ownerId;
   private java.util.Date updated;
   private java.util.List<MenuItem> menuItem;
-
   public String getObjectId()
   {
     return objectId;
@@ -45,6 +46,7 @@ public class Menu implements Serializable
     this.menuItem = menuItem;
   }
 
+                                                    
   public Menu save()
   {
     return Backendless.Data.of( Menu.class ).save( this );

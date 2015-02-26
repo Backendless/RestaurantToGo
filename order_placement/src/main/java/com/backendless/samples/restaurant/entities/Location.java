@@ -2,7 +2,9 @@ package com.backendless.samples.restaurant.entities;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
+import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
+import com.backendless.geo.GeoPoint;
 import com.backendless.persistence.BackendlessDataQuery;
 
 import java.io.Serializable;
@@ -18,7 +20,6 @@ public class Location implements Serializable
   private String city;
   private String phoneNumber;
   private Menu menu;
-
   public String getStreetAddress()
   {
     return streetAddress;
@@ -89,6 +90,7 @@ public class Location implements Serializable
     this.menu = menu;
   }
 
+                                                    
   public Location save()
   {
     return Backendless.Data.of( Location.class ).save( this );

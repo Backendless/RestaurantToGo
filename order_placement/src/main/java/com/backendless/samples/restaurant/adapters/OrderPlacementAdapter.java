@@ -1,12 +1,16 @@
 package com.backendless.samples.restaurant.adapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.backendless.samples.restaurant.R;
 import com.backendless.samples.restaurant.entities.MenuItem;
+import com.backendless.samples.restaurant.entities.Order;
+import com.backendless.samples.restaurant.entities.OrderItem;
 
 import java.util.List;
 
@@ -17,23 +21,23 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
 {
   private LayoutInflater mInflater;
   private int mResource;
+  private Order order;
   private TextView totalPriceView;
-  private NumberPicker mNumberPicker;
-  private CheckBox mCheckBox;
 
   /**
    * Constructor
    *
-   * @param context     The current context.
-   * @param resource    The resource ID for a layout file containing a TextView to use when
-   *                    instantiating views.
-   * @param restaurants The objects to represent in the ListView.
+   * @param context   The current context.
+   * @param resource  The resource ID for a layout file containing a TextView to use when
+   *                  instantiating views.
+   * @param menuItems The objects to represent in the ListView.
    */
-  public OrderPlacementAdapter( Context context, int resource, List<MenuItem> restaurants, TextView totalPriceView )
+  public OrderPlacementAdapter( Context context, int resource, List<MenuItem> menuItems, TextView totalPriceView )
   {
-    super( context, resource, restaurants );
+    super( context, resource, menuItems );
     mResource = resource;
     mInflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+    order = new Order();
     this.totalPriceView = totalPriceView;
   }
 
@@ -43,52 +47,99 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
   @Override
   public View getView( int position, View convertView, ViewGroup parent )
   {
-    View view = convertView == null ? mInflater.inflate( mResource, parent, false ) : convertView;
+    final ViewHolder holder;
 
-    final NumberPicker quantityPicker = (NumberPicker) view.findViewById( R.id.quantity );
-    quantityPicker.setMinValue( 0 );
-    quantityPicker.setMaxValue( 10 );
-    quantityPicker.setValue( 0 );
-    quantityPicker.setDescendantFocusability( NumberPicker.FOCUS_BLOCK_DESCENDANTS );
-//    quantityPicker.setWrapSelectorWheel( false );
+    final MenuItem menuItem = getItem( position );
 
-    final TextView priceTextView = (TextView) view.findViewById( R.id.itemPrice );
+    if( convertView == null )
+    {
+      /* There is no view at this position, we create a new one.
+           In this case by inflating an xml layout */
+      convertView = mInflater.inflate( mResource, parent, false );
+      holder = new ViewHolder();
+      holder.quantityEditText = (EditText) convertView.findViewById( R.id.quantity );
+      holder.menuItemCheckBox = (CheckBox) convertView.findViewById( R.id.menuItemCheckBox );
+      holder.priceTextView = (TextView) convertView.findViewById( R.id.itemPrice );
+      holder.textWatcher = new TextWatcher()
+      {
+        @Override
+        public void beforeTextChanged( CharSequence s, int start, int count, int after )
+        {
 
-    final CheckBox menuItemCheckBox = (CheckBox) view.findViewById( R.id.menuItemCheckBox );
-    menuItemCheckBox.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener()
+        }
+
+        @Override
+        public void onTextChanged( CharSequence s, int start, int before, int count )
+        {
+          if( holder.menuItemCheckBox.isChecked() && s.length() != 0 )
+          {
+            Integer quantity = Integer.valueOf( s.toString() );
+            OrderItem orderItem = order.getOrderItem( menuItem );
+            orderItem.setQuantity( quantity );
+            totalPriceView.setText( String.format( getContext().getString( R.string.order_total_text ), order.calculateTotal() ) );
+          }
+        }
+
+        @Override
+        public void afterTextChanged( Editable s )
+        {
+
+        }
+      };
+
+      convertView.setTag( holder );
+    }
+    else
+    {
+      /* We recycle a View that already exists */
+      holder = (ViewHolder) convertView.getTag();
+      holder.menuItemCheckBox.setOnCheckedChangeListener( null );
+      holder.quantityEditText.removeTextChangedListener( holder.textWatcher );
+    }
+
+    holder.quantityEditText.setText( String.valueOf( order.getCount( menuItem ) ) );
+
+    holder.quantityEditText.addTextChangedListener( holder.textWatcher );
+
+    holder.menuItemCheckBox.setChecked( order.containsMenuItem( menuItem ) );
+    holder.menuItemCheckBox.setText( menuItem.getName() );
+
+    holder.menuItemCheckBox.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener()
     {
       @Override
       public void onCheckedChanged( CompoundButton buttonView, boolean isChecked )
       {
-        String totalText = totalPriceView.getText().toString();
-        double currentPrice = Double.valueOf( totalText.substring( totalText.lastIndexOf( " " ) ) );
-        double itemPrice = Double.valueOf( priceTextView.getText().toString() );
-        double newPrice = isChecked ? currentPrice + itemPrice * quantityPicker.getValue() : currentPrice - itemPrice * quantityPicker.getValue();
-        totalPriceView.setText( String.format( getContext().getString( R.string.order_total_text ), newPrice ) );
-      }
-    } );
-
-    quantityPicker.setOnValueChangedListener( new NumberPicker.OnValueChangeListener()
-    {
-      @Override
-      public void onValueChange( NumberPicker picker, int oldVal, int newVal )
-      {
-        if( menuItemCheckBox.isChecked() )
+        if( isChecked )
         {
-          String totalText = totalPriceView.getText().toString();
-          double currentPrice = Double.valueOf( totalText.substring( totalText.lastIndexOf( " " ) ) );
-          double itemPrice = Double.valueOf( priceTextView.getText().toString() );
-          double newPrice = currentPrice + itemPrice * (newVal - oldVal);
-          totalPriceView.setText( String.format( getContext().getString( R.string.order_total_text ), newPrice ) );
+          OrderItem orderItem = new OrderItem();
+          orderItem.setMenuItem( menuItem );
+          orderItem.setQuantity( Integer.valueOf( holder.quantityEditText.getText().toString() ) );
+          order.getItems().add( orderItem );
         }
+        else //not checked
+        {
+          order.removeItem( menuItem );
+        }
+
+        totalPriceView.setText( String.format( getContext().getString( R.string.order_total_text ), order.calculateTotal() ) );
       }
     } );
 
-    MenuItem item = getItem( position );
+    holder.priceTextView.setText( String.valueOf( menuItem.getPrice() ) );
 
-    menuItemCheckBox.setText( item.getName() );
-    priceTextView.setText( String.valueOf( item.getPrice() ) );
+    return convertView;
+  }
 
-    return view;
+  public Order getOrder()
+  {
+    return order;
+  }
+
+  static class ViewHolder
+  {
+    CheckBox menuItemCheckBox;
+    EditText quantityEditText;
+    TextView priceTextView;
+    TextWatcher textWatcher;
   }
 }
