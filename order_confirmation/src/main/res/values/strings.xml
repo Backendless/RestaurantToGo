@@ -9,7 +9,7 @@
     <string name="activity_restaurant_listing">Endless-To-Go Restaurants</string>
     <string name="activity_locations_listing">Endless-To-Go Locations</string>
     <string name="activity_order_placement">Endless-To-Go Order</string>
-    <string name="activity_order_confirmation">End</string>
+    <string name="activity_order_confirmation">Endless-To-Go Order Confirmation</string>
 
     <!-- text labels -->
     <string name="label_name">Name:</string>
@@ -29,8 +29,12 @@
     <string name="divider_or">OR</string>
     <string name="register_link">Register</string>
     <string name="arrow_description">arrow image</string>
+    <string name="cancel_button_description">cancel item</string>
     <string name="locations_text">Locations</string>
+    <string name="order_text">Order</string>
+    <string name="order_confirmation_title_text">Order Confirmation</string>
     <string name="order_total_text">Order total: %.2f</string>
+    <string name="total_text">Total: %.2f</string>
     <string name="zero">0</string>
 
     <plurals name="restaurant_locations">

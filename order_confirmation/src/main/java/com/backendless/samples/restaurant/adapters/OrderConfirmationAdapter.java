@@ -6,18 +6,20 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import com.backendless.samples.restaurant.R;
-import com.backendless.samples.restaurant.entities.MenuItem;
 import com.backendless.samples.restaurant.entities.Order;
 import com.backendless.samples.restaurant.entities.OrderItem;
 
 import java.util.List;
 
 /**
- * An adapter that fills a view having list of MenuItem objects as input data.
+ * An adapter that fills a view having list of OrderItem objects as input data.
  */
-public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
+public class OrderConfirmationAdapter extends ArrayAdapter<OrderItem>
 {
   private LayoutInflater mInflater;
   private int mResource;
@@ -32,12 +34,13 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
    *                  instantiating views.
    * @param menuItems The objects to represent in the ListView.
    */
-  public OrderPlacementAdapter( Context context, int resource, List<MenuItem> menuItems, TextView totalPriceView )
+  public OrderConfirmationAdapter( Context context, int resource, List<OrderItem> menuItems, Order order,
+                                   TextView totalPriceView )
   {
     super( context, resource, menuItems );
     mResource = resource;
     mInflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-    order = new Order();
+    this.order = order;
     this.totalPriceView = totalPriceView;
   }
 
@@ -49,7 +52,7 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
   {
     final ViewHolder holder;
 
-    final MenuItem menuItem = getItem( position );
+    final OrderItem orderItem = getItem( position );
 
     if( convertView == null )
     {
@@ -58,8 +61,9 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
       convertView = mInflater.inflate( mResource, parent, false );
       holder = new ViewHolder();
       holder.quantityEditText = (EditText) convertView.findViewById( R.id.quantity );
-      holder.menuItemCheckBox = (CheckBox) convertView.findViewById( R.id.menuItemCheckBox );
+      holder.menuItemTextView = (TextView) convertView.findViewById( R.id.menuItem );
       holder.priceTextView = (TextView) convertView.findViewById( R.id.itemPrice );
+      holder.cancelButton = (ImageButton) convertView.findViewById( R.id.cancelButton );
       holder.textWatcher = new TextWatcher()
       {
         @Override
@@ -71,11 +75,11 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
         @Override
         public void onTextChanged( CharSequence s, int start, int before, int count )
         {
-          if( holder.menuItemCheckBox.isChecked() && s.length() != 0 )
+          if( s.length() != 0 )
           {
-            Integer quantity = Integer.valueOf( s.toString() );
-            OrderItem orderItem = order.getOrderItem( menuItem );
-            orderItem.setQuantity( quantity );
+            Integer newQuantity = Integer.valueOf( s.toString() );
+            orderItem.setQuantity( newQuantity );
+            holder.priceTextView.setText( String.valueOf( orderItem.getMenuItem().getPrice() * orderItem.getQuantity() ) );
             totalPriceView.setText( String.format( getContext().getString( R.string.order_total_text ), order.calculateTotal() ) );
           }
         }
@@ -93,41 +97,37 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
     {
       /* We recycle a View that already exists */
       holder = (ViewHolder) convertView.getTag();
-      holder.menuItemCheckBox.setOnCheckedChangeListener( null );
+      holder.cancelButton.setOnClickListener( null );
       holder.quantityEditText.removeTextChangedListener( holder.textWatcher );
     }
 
-    holder.quantityEditText.setText( String.valueOf( order.getQuantity( menuItem ) ) );
-
+    holder.quantityEditText.setText( String.valueOf( orderItem.getQuantity() ) );
     holder.quantityEditText.addTextChangedListener( holder.textWatcher );
 
-    holder.menuItemCheckBox.setChecked( order.containsMenuItem( menuItem ) );
-    holder.menuItemCheckBox.setText( menuItem.getName() );
+    holder.menuItemTextView.setText( orderItem.getMenuItem().getName() );
 
-    holder.menuItemCheckBox.setOnCheckedChangeListener( new CompoundButton.OnCheckedChangeListener()
+    holder.cancelButton.setOnClickListener( new View.OnClickListener()
     {
       @Override
-      public void onCheckedChanged( CompoundButton buttonView, boolean isChecked )
+      public void onClick( View v )
       {
-        if( isChecked )
-        {
-          OrderItem orderItem = new OrderItem();
-          orderItem.setMenuItem( menuItem );
-          orderItem.setQuantity( Integer.valueOf( holder.quantityEditText.getText().toString() ) );
-          order.getItems().add( orderItem );
-        }
-        else //not checked
-        {
-          order.removeItem( menuItem );
-        }
-
-        totalPriceView.setText( String.format( getContext().getString( R.string.order_total_text ), order.calculateTotal() ) );
+        order.removeItem( orderItem );
+        recalculateTotalPrice();
+        remove( orderItem );
+        notifyDataSetChanged();
       }
     } );
 
-    holder.priceTextView.setText( String.valueOf( menuItem.getPrice() ) );
+    holder.priceTextView.setText( String.valueOf( orderItem.getMenuItem().getPrice() * orderItem.getQuantity() ) );
+
+    recalculateTotalPrice();
 
     return convertView;
+  }
+
+  private void recalculateTotalPrice()
+  {
+    totalPriceView.setText( String.format( getContext().getString( R.string.total_text ), order.calculateTotal() ) );
   }
 
   public Order getOrder()
@@ -137,9 +137,10 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
 
   static class ViewHolder
   {
-    CheckBox menuItemCheckBox;
+    TextView menuItemTextView;
     EditText quantityEditText;
     TextView priceTextView;
     TextWatcher textWatcher;
+    ImageButton cancelButton;
   }
 }
