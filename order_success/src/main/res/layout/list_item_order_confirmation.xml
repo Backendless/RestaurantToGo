@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/view_horizontal_margin"
+    android:paddingTop="@dimen/view_vertical_margin"
+    android:paddingRight="@dimen/view_horizontal_margin"
+    android:paddingBottom="@dimen/view_vertical_margin"
+    android:gravity="center_vertical">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancelButton"
+        android:background="@drawable/abc_ic_clear_mtrl_alpha"
+        android:contentDescription="@string/cancel_button_description"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:focusableInTouchMode="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_menu_item"
+        android:id="@+id/menuItem"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/cancelButton"
+        android:layout_marginLeft="@dimen/view_horizontal_margin"
+        android:layout_toLeftOf="@+id/quantity" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="2"
+        android:id="@+id/quantity"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/itemPrice"
+        android:text="@string/zero"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:gravity="center_horizontal"
+        android:selectAllOnFocus="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_price"
+        android:id="@+id/itemPrice"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerVertical="true" />
+
+
+</RelativeLayout>

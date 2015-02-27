@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/login/login.iml" filepath="$PROJECT_DIR$/login/login.iml" />
       <module fileurl="file://$PROJECT_DIR$/order_confirmation/order_confirmation.iml" filepath="$PROJECT_DIR$/order_confirmation/order_confirmation.iml" />
       <module fileurl="file://$PROJECT_DIR$/order_placement/order_placement.iml" filepath="$PROJECT_DIR$/order_placement/order_placement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/order_success/order_success.iml" filepath="$PROJECT_DIR$/order_success/order_success.iml" />
       <module fileurl="file://$PROJECT_DIR$/registration/registration.iml" filepath="$PROJECT_DIR$/registration/registration.iml" />
       <module fileurl="file://$PROJECT_DIR$/restaurant_list/restaurant_list.iml" filepath="$PROJECT_DIR$/restaurant_list/restaurant_list.iml" />
     </modules>

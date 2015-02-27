@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">RestaurantToGo</string>
+
+    <!-- activity names -->
+    <string name="activity_registration">Endless-To-Go Registration</string>
+    <string name="activity_login">Endless-To-Go Login</string>
+    <string name="activity_restaurant_listing">Endless-To-Go Restaurants</string>
+    <string name="activity_locations_listing">Endless-To-Go Locations</string>
+    <string name="activity_order_placement">Endless-To-Go Order</string>
+    <string name="activity_order_confirmation">Endless-To-Go Order Confirmation</string>
+    <string name="activity_order_success">Endless-To-Go Order Confirmation</string>
+
+    <!-- text labels -->
+    <string name="label_name">Name:</string>
+    <string name="label_email">Email address:</string>
+    <string name="label_password">Password:</string>
+    <string name="label_password_confirm">Retype password:</string>
+
+    <!-- button labels -->
+    <string name="button_register">Register</string>
+    <string name="button_login">Login</string>
+    <string name="button_login_facebook">Login with Facebook</string>
+    <string name="button_login_twitter">Login with Twitter</string>
+    <string name="button_submit">Submit</string>
+
+    <!-- texts -->
+    <string name="register_prompt">Do not have an account? Register now</string>
+    <string name="divider_or">OR</string>
+    <string name="register_link">Register</string>
+    <string name="arrow_description">arrow image</string>
+    <string name="cancel_button_description">cancel item</string>
+    <string name="locations_text">Locations</string>
+    <string name="order_text">Order</string>
+    <string name="order_confirmation_title_text">Order Confirmation</string>
+    <string name="order_total_text">Order total: %.2f</string>
+    <string name="total_text">Total: %.2f</string>
+    <string name="zero">0</string>
+    <string name="thank_you_text">Thank you!</string>
+    <string name="order_submitted_message">Your order has been submitted. You can pick it up at the address below in about 20 minute. Your order number is:</string>
+    <string name="order_number">%d</string>
+    <string name="pickup_address_text" formatted="false">Pick up address:\n\n%s\n%s\n%s</string>
+
+    <plurals name="restaurant_locations">
+        <item quantity="one">%d location</item>
+        <item quantity="other">%d locations</item>
+    </plurals>
+
+    <!-- warnings -->
+    <string name="warning_name_empty">Name cannot be empty</string>
+    <string name="warning_name_lowercase">Name should start from an uppercase letter</string>
+    <string name="warning_email_empty">Email cannot be empty</string>
+    <string name="warning_email_invalid">Invalid email format</string>
+    <string name="warning_password_empty">Password cannot be empty</string>
+    <string name="warning_passwords_do_not_match">Passwords do not match</string>
+
+    <!-- info messages -->
+    <string name="info_registered_template">Registered. ObjectId: %s</string>
+    <string name="info_registered_success">Registered successfully</string>
+    <string name="info_logged_in">Logged in. ObjectId: %s</string>
+
+    <!-- loading messages -->
+    <string name="loading_empty">Loading…</string>
+    <string name="loading_register">Sending registration request…</string>
+    <string name="loading_login">Logging in…</string>
+    <string name="loading_restaurants">Loading restaurants listing…</string>
+    <string name="loading_menu_items">Loading menu items…</string>
+    <string name="loading_submit_order">Submitting order…</string>
+
+    <!-- sample texts -->
+    <string name="sample_restaurant_name">Sample Restaurant Name</string>
+    <string name="sample_cuisine">sample cuisine</string>
+    <string name="sample_locations">2 locations</string>
+    <string name="sample_city">Sample City</string>
+    <string name="sample_address">111 Sample Street</string>
+    <string name="sample_menu_item">Sample Menu Item</string>
+    <string name="sample_price">&lt;price&gt;</string>
+
+</resources>

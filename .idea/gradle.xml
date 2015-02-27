@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/login" />
             <option value="$PROJECT_DIR$/order_confirmation" />
             <option value="$PROJECT_DIR$/order_placement" />
+            <option value="$PROJECT_DIR$/order_success" />
             <option value="$PROJECT_DIR$/registration" />
             <option value="$PROJECT_DIR$/restaurant_list" />
           </set>
