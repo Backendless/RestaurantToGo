@@ -131,7 +131,9 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
       }
     } );
 
-    holder.priceTextView.setText( String.valueOf( menuItem.getPrice() ) );
+    // format price
+    String price = String.valueOf( String.format( "%.2f", menuItem.getPrice() ) );
+    holder.priceTextView.setText( price );
 
     return convertView;
   }
