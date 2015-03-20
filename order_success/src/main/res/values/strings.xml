@@ -41,6 +41,7 @@
     <string name="order_submitted_message">Your order has been submitted. You can pick it up at the address below in about 20 minute. Your order number is:</string>
     <string name="order_number">%d</string>
     <string name="pickup_address_text" formatted="false">Pick up address:\n\n%s\n%s\n%s</string>
+    <string name="make_another_order">Make another order</string>
 
     <plurals name="restaurant_locations">
         <item quantity="one">%d location</item>

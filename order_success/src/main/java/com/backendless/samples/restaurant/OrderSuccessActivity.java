@@ -1,7 +1,10 @@
 package com.backendless.samples.restaurant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.backendless.samples.restaurant.entities.Location;
 import com.backendless.samples.restaurant.entities.Order;
@@ -34,5 +37,20 @@ public class OrderSuccessActivity extends ActionBarActivity
 
     TextView addressView = (TextView) findViewById( R.id.address );
     addressView.setText( String.format( getString( R.string.pickup_address_text ), restaurant.getName(), location.getCity(), location.getStreetAddress() ) );
+
+    Button makeOrderButton = (Button) findViewById( R.id.newOrderButton );
+    makeOrderButton.setOnClickListener( new View.OnClickListener()
+    {
+      @Override
+      public void onClick( View v )
+      {
+        // go to restaurants listing
+        Intent restaurantListingIntent = new Intent( OrderSuccessActivity.this, RestaurantListingActivity.class );
+        startActivity( restaurantListingIntent );
+
+        // finish order success activity
+        finish();
+      }
+    } );
   }
 }
