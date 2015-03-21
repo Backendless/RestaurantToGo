@@ -15,6 +15,7 @@ import com.backendless.samples.restaurant.entities.Location;
 import com.backendless.samples.restaurant.entities.Order;
 import com.backendless.samples.restaurant.entities.Restaurant;
 import com.backendless.samples.restaurant.utility.DialogHelper;
+import com.backendless.samples.restaurant.utility.LoadingCallback;
 
 public class OrderConfirmationActivity extends ListActivity
 {
@@ -66,12 +67,22 @@ public class OrderConfirmationActivity extends ListActivity
             progressDialog.dismiss();
 
             order.setNumber( response );
-            Intent orderSuccessIntent = new Intent( OrderConfirmationActivity.this, OrderSuccessActivity.class );
-            orderSuccessIntent.putExtra( "restaurant", restaurant );
-            orderSuccessIntent.putExtra( "location", location );
-            orderSuccessIntent.putExtra( "order", order );
-            startActivity( orderSuccessIntent );
-            finish();
+
+            // save Order on backend
+            Backendless.Data.of( Order.class ).save( order, new LoadingCallback<Order>( OrderConfirmationActivity.this, getString( R.string.loading_placing_order ), true )
+            {
+              @Override
+              public void handleResponse( Order response )
+              {
+                super.handleResponse( response );
+                Intent orderSuccessIntent = new Intent( OrderConfirmationActivity.this, OrderSuccessActivity.class );
+                orderSuccessIntent.putExtra( "restaurant", restaurant );
+                orderSuccessIntent.putExtra( "location", location );
+                orderSuccessIntent.putExtra( "order", order );
+                startActivity( orderSuccessIntent );
+                finish();
+              }
+            } );
           }
 
           @Override

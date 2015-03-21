@@ -64,4 +64,13 @@
         android:layout_marginLeft="@dimen/view_horizontal_margin"
         android:layout_marginTop="@dimen/view_vertical_margin" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/make_another_order"
+        android:id="@+id/newOrderButton"
+        android:layout_below="@+id/address"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/view_vertical_margin" />
+
 </RelativeLayout>

@@ -111,6 +111,12 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
       {
         if( isChecked )
         {
+          // set quantity to 1 when the user checks menu item
+          if( holder.quantityEditText.getText().toString().equals( "0" ) )
+          {
+            holder.quantityEditText.setText( "1" );
+          }
+
           OrderItem orderItem = new OrderItem();
           orderItem.setMenuItem( menuItem );
           orderItem.setQuantity( Integer.valueOf( holder.quantityEditText.getText().toString() ) );
@@ -125,7 +131,9 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
       }
     } );
 
-    holder.priceTextView.setText( String.valueOf( menuItem.getPrice() ) );
+    // format price
+    String price = String.valueOf( String.format( "%.2f", menuItem.getPrice() ) );
+    holder.priceTextView.setText( price );
 
     return convertView;
   }
