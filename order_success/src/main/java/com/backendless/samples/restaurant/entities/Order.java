@@ -312,7 +312,7 @@ public class Order implements Serializable
       }
     }
 
-    return 1;
+    return 0;
   }
 
   /**

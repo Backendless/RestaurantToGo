@@ -111,16 +111,22 @@ public class OrderPlacementAdapter extends ArrayAdapter<MenuItem>
       {
         if( isChecked )
         {
-          // set quantity to 1 when the user checks menu item
-          if( holder.quantityEditText.getText().toString().equals( "0" ) )
-          {
-            holder.quantityEditText.setText( "1" );
-          }
-
           OrderItem orderItem = new OrderItem();
           orderItem.setMenuItem( menuItem );
-          orderItem.setQuantity( Integer.valueOf( holder.quantityEditText.getText().toString() ) );
+
+          if( holder.quantityEditText.getText().toString().equals( "0" ) )
+          {
+            // immediately add one item of checked menu item if it wasn't present in the order yet
+            orderItem.setQuantity( 1 );
+          }
+          else
+          {
+            orderItem.setQuantity( Integer.valueOf( holder.quantityEditText.getText().toString() ) );
+          }
+
           order.getItems().add( orderItem );
+
+          holder.quantityEditText.setText( orderItem.getQuantity().toString() );
         }
         else //not checked
         {
